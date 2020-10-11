@@ -16,7 +16,6 @@ class OpenWeatherAPITestCase: XCTestCase {
     
     // ERROR:
     func testGetWeather_WhenServerError_ShouldFailAndThrowAnError() {
-        
         let weatherService = OpenWeatherAPI(session: URLSessionFake(
             data: nil,
             response: nil,
@@ -35,10 +34,9 @@ class OpenWeatherAPITestCase: XCTestCase {
     
     // NO DATA:
     func testGetWeather_WhenDataIsNil_ShouldFailAndThrowAnError() {
-        
         let weatherService = OpenWeatherAPI(session: URLSessionFake(
             data: nil,
-            response: nil,
+            response: FakeResponseData.responseOK,
             error: nil))
         let expectation = XCTestExpectation(description: "Queue change")
         weatherService.getWeather { result in
@@ -54,7 +52,6 @@ class OpenWeatherAPITestCase: XCTestCase {
     
     // BAD RESPONSE:
     func testGetWeather_WhenIncorrectResponse_ShouldFailAndThrowAnError() {
-        
         let weatherService = OpenWeatherAPI(session: URLSessionFake(
             data: nil,
             response: FakeResponseData.responseKO,
@@ -74,7 +71,6 @@ class OpenWeatherAPITestCase: XCTestCase {
     
     // BAD DATA:
     func testGetWeather_WhenDataIsIncorrect_ShouldFailAndThrowAnError() {
-        
         let weatherService = OpenWeatherAPI(session: URLSessionFake(
             data:  FakeResponseData.incorrectData,
             response: FakeResponseData.responseOK,

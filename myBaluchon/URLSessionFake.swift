@@ -9,7 +9,6 @@
 import Foundation
 
 class URLSessionFake: URLSession {
-    
     var data: Data?
     var response: URLResponse?
     var error: Error?

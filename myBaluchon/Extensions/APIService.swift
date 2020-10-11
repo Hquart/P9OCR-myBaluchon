@@ -15,23 +15,20 @@ enum APIError: String, Error {
     case decodeError = "Data can't be decoded !"
 }
 
-// This protocol will be used to implement all API services with a Generic network request function "request"
+// This protocol will be used to implement all API services with a Generic network request function
 protocol APIService {
     
     var session: URLSession { get }
-    
-    func request<T: Decodable>(baseUrl: String, parameters: [String : String], completion: @escaping((Result<T, APIError>) -> Void))
+    func request<T: Decodable>(baseUrl: String, parameters: [String: String], completion: @escaping((Result<T, APIError>) -> Void))
 }
 
 extension APIService {
-    // This func will create the request with parameters and trigger the call func
+    // This func will create the request with parameters and trigger the call() func
     func request<T: Decodable>(baseUrl: String, parameters: [String : String], completion: @escaping((Result<T, APIError>) -> Void)) {
         guard var components = URLComponents(string: baseUrl) else {
-             completion(.failure(.URLError))
             return }
         components.setQueryItems(with: parameters)
         guard let url = components.url else {
-            completion(.failure(.URLError))
             return }
         call(url: url, completion: completion)
     }

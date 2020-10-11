@@ -8,9 +8,10 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController {
+final class WeatherViewController: UIViewController {
     
     //  MARK: - PROPERTIES & OUTLETS
+    
     let openWeatherService = OpenWeatherAPI()
     
     @IBOutlet var cityNameLabels: [UILabel]!
@@ -19,7 +20,8 @@ class WeatherViewController: UIViewController {
     @IBOutlet var descriptionLabels: [UILabel]!
     @IBOutlet var weatherLayouts: [UIStackView]!
     
-    // MARK: METHODS
+    // MARK: - METHODS
+    
     override func viewDidLoad() {
         weatherLayouts[0].addBackground(color: UIColor.Custom.myGreen)
         weatherLayouts[1].addBackground(color: .lightGray)
@@ -30,7 +32,9 @@ class WeatherViewController: UIViewController {
     }
     
     func updateWeather() {
-        openWeatherService.getWeather { [unowned self] result in // deallocating dependance to 
+        print(Thread.current)
+        openWeatherService.getWeather { [unowned self] result in // queue change here
+            print(Thread.current)
             DispatchQueue.main.async {
                 switch result {
                 case .failure(_):
@@ -43,6 +47,7 @@ class WeatherViewController: UIViewController {
                                images: [self.iconSlots[0], self.iconSlots[1]])
                 }
             }
+            print(Thread.current)
         }
     }
 }

@@ -12,19 +12,19 @@ class FakeResponseData {
     
     // MARK: - CORRECT DATA:
     // Creating fake correct data for each API Service to be tested
-    static var fixerCorrectData: Data {
+    static var fixerCorrectData: Data? {
         let bundle = Bundle(for: FakeResponseData.self)
         let url = bundle.url(forResource: "fixerAPI", withExtension: "json")!
         let data = try! Data(contentsOf: url)
         return data
     }
-    static var googleCorrectData: Data {
+    static var googleCorrectData: Data? {
         let bundle = Bundle(for: FakeResponseData.self)
         let url = bundle.url(forResource: "googleAPI", withExtension: "json")!
         let data = try! Data(contentsOf: url)
         return data
     }
-    static var openWeatherCorrectData: Data {
+    static var openWeatherCorrectData: Data? {
         let bundle = Bundle(for: FakeResponseData.self)
         let url = bundle.url(forResource: "openWeatherAPI", withExtension: "json")!
         let data = try! Data(contentsOf: url)
@@ -44,7 +44,6 @@ class FakeResponseData {
         statusCode: 500, httpVersion: nil, headerFields: [:])!
     
     // MARK: - ERROR:
-    class TestError: Error {
-    }
+    class TestError: Error {}
     static let error = TestError()
 }

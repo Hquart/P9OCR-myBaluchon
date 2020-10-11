@@ -25,7 +25,7 @@ class DestinationTestCase: XCTestCase {
         XCTAssertTrue(destinationSut.outputLanguageSymbol == "es")
         XCTAssertTrue(destinationSut.outputLanguage == "Spanish")
         XCTAssertTrue(destinationSut.cityId == "3530597")
-         XCTAssertTrue(destinationSut.imageId == "mexico")
+        XCTAssertTrue(destinationSut.imageId == "mexico")
     }
     
     // DESTINATION NEW YORK:

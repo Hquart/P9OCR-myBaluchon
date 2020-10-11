@@ -7,6 +7,7 @@
 
 import Foundation
 
+// commentaire test pour git diff  
 class GoogleAPI: APIService {
     
     let destinationService = Destination()

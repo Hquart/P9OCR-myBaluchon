@@ -15,7 +15,6 @@ class GoogleAPITestCase: XCTestCase {
     
     // ERROR:
     func testGetTranslation_WhenServerError_ShouldFailAndThrowAnError() {
-        
         let googleService = GoogleAPI(session: URLSessionFake(
             data: nil,
             response: nil,
@@ -34,10 +33,9 @@ class GoogleAPITestCase: XCTestCase {
     
     // NO DATA:
     func testGetTranslation_WhenDataIsNil_ShouldFailAndThrowAnError() {
-        
         let googleService = GoogleAPI(session: URLSessionFake(
             data: nil,
-            response: nil,
+            response: FakeResponseData.responseOK,
             error: nil))
         let expectation = XCTestExpectation(description: "Queue change")
         googleService.getTranslation { result in
@@ -53,12 +51,10 @@ class GoogleAPITestCase: XCTestCase {
     
     // BAD RESPONSE:
     func testGetTranslation_WhenIncorrectResponse_ShouldFailAndThrowAnError() {
-        //Given
         let googleService = GoogleAPI(session: URLSessionFake(
             data: FakeResponseData.googleCorrectData,
             response: FakeResponseData.responseKO,
             error: nil))
-        //When
         let expectation = XCTestExpectation(description: "Queue change")
         googleService.getTranslation { result in
             guard case .failure(let error) = result else {
@@ -71,13 +67,11 @@ class GoogleAPITestCase: XCTestCase {
         wait(for: [expectation], timeout: 0.01)
     }
     // BAD DATA
-    func testGetRate_WhenIncorrectData_ShouldFail() {
-        //Given
+    func testGetTranslation_WhenIncorrectData_ShouldFail() {
         let googleService = GoogleAPI(session: URLSessionFake(
             data: FakeResponseData.incorrectData,
-            response: FakeResponseData.responseKO,
+            response: FakeResponseData.responseOK,
             error: nil))
-        //When
         let expectation = XCTestExpectation(description: "Queue change")
         googleService.getTranslation { result in
             guard case .failure(let error) = result else {
@@ -91,13 +85,11 @@ class GoogleAPITestCase: XCTestCase {
     }
     
     // DATA OK, RESPONSE OK, NO ERROR:
-    func testGetRate_WhenEverythingOK_ShouldSucceedandProvideData() {
-        //Given
+    func testGetTranslation_WhenEverythingOK_ShouldSucceedAndProvideData() {
         let googleService = GoogleAPI(session: URLSessionFake(
             data: FakeResponseData.googleCorrectData,
             response: FakeResponseData.responseOK,
             error: nil))
-        //When
         let expectation = XCTestExpectation(description: "Queue change")
         googleService.getTranslation { result in
             guard case .success(let translation) = result else {

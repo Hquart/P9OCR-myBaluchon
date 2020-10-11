@@ -12,26 +12,30 @@ import XCTest
 class FixerAPITestCase: XCTestCase {
     // ERROR:
     func testGetRate_WhenError_ShouldThrowAnError() {
+        // Given
         let fixerService = FixerAPI(session: URLSessionFake(
             data: nil,
             response: nil,
             error: FakeResponseData.error))
         let expectation = XCTestExpectation(description: "Queue change")
-        fixerService.getRate { result in
+        // When
+        fixerService.getRate { result in // asynchronous block of code from here
             guard case .failure(let error) = result else {
                 XCTFail()
                 return
             }
-            XCTAssertNotNil(error)
-            expectation.fulfill()
+        // Then
+            XCTAssertNotNil(error) // completion handler checks here we have an error
+            expectation.fulfill() // we indicate here that the background task has finished successfully
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.01) // As long as the background task fulfills the expectation within the 0,01 second timeout, test will pass.
     }
+    
     // NO DATA:
     func testGetRate_WhenNoData_ShouldFail() {
         let fixerService = FixerAPI(session: URLSessionFake(
             data: nil,
-            response: nil,
+            response: FakeResponseData.responseOK,
             error: nil))
         let expectation = XCTestExpectation(description: "Queue change")
         

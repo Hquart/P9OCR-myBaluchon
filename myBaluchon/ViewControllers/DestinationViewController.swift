@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DestinationViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+final class DestinationViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     //  MARK: - PROPERTIES
     let destinationService = Destination()

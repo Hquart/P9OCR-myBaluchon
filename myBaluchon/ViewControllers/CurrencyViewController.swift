@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CurrencyViewController: UIViewController {
+final class CurrencyViewController: UIViewController {
     
     //  MARK: - PROPERTIES & OUTLETS
     let fixerService = FixerAPI()

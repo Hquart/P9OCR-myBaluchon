@@ -7,7 +7,7 @@
 //
 import UIKit
 
-class TranslationViewController: UIViewController, UITextViewDelegate  {
+final class TranslationViewController: UIViewController, UITextViewDelegate  {
     
     //  MARK: - PROPERTIES & OUTLETS
     let translationService = GoogleAPI()
@@ -62,7 +62,7 @@ class TranslationViewController: UIViewController, UITextViewDelegate  {
 
 extension TranslationViewController {
     
-    // Once the user click in the text field,previous text is removed for a new translation
+    // Once the user clicks in the textfield, previous text is removed for a new translation
        func textViewDidBeginEditing(_ textView: UITextView) {
            textView.text = ""
        }
